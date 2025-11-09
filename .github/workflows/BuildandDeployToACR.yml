@@ -1,0 +1,27 @@
+name: Build and Deploy image to acr
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/docker-login@v1
+        with:
+          loginserver: devacr108.azurecr.io
+          username: ${{secrets.REGISTRY_USERNAME}}
+          password: ${{secrets.REGISTRY_PASSWORD}}
+
+      - run: |
+          docker build -t devacr108.azurecr.io/myapp:${{ github.sha }}
+          docker push devacr108.azurecr.io/myapp:${{ github.sha }}
+          
+        
+          
+        
