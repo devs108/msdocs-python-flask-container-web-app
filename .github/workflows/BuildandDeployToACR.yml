@@ -19,7 +19,7 @@ jobs:
           password: ${{secrets.REGISTRY_PASSWORD}}
 
       - run: |
-          docker build -t devacr108.azurecr.io/myapp:${{ github.sha }}
+          docker build . -t devacr108.azurecr.io/myapp:${{ github.sha }}
           docker push devacr108.azurecr.io/myapp:${{ github.sha }}
           
         
